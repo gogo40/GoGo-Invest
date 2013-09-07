@@ -1,6 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-(c) 2013, GoGo40 - Péricles Lopes Machado
+(c) 2013, GoGo40 - Pï¿½ricles Lopes Machado
 
 Script que baixa os dados fundamentalista do site fundamentus.com.br 
 e gera um arquivo xls com todos dados.
@@ -18,7 +18,7 @@ Funcao que gera um arquivo a partir de um link
 """
 use_wget = True
 fn = "get_buffer"
-duracao_pausa = 2
+duracao_pausa = 0.5
 
 def get_file(link):
 	global use_wget, fn
@@ -124,11 +124,12 @@ c = 0
 #Parser para processar os dados de cada aÃ§Ã£o
 
 var_nomes = []
-nomes_fora = {}
 var_dados = []
 is_td = 0
 is_a = 0
+is_name = 1
 
+nomes_fora = {}
 
 nomes_fora['Indicadores fundamentalistas'] = 1
 nomes_fora['Oscilações'] = 1
@@ -136,7 +137,6 @@ nomes_fora['Dados Balanço Patrimonial'] = 1
 nomes_fora['Dados demonstrativos de resultados'] = 1
 nomes_fora['Últimos 12 meses'] = 1
 nomes_fora['Últimos 3 meses'] = 1
-is_name = 1
 
 class AcaoHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
@@ -175,7 +175,7 @@ class AcaoHTMLParser(HTMLParser):
 
 #Processa link
 
-dados = {}
+dados = []
 
 N = len(lista_nomes)
 ord_nomes = []
@@ -187,9 +187,17 @@ for i in range(0, N): #len(lista_nomes)):
 
 	lista_f = get_file(lista_links[i])
 
+	var_nomes = []
+	var_dados = []
+	is_td = 0
+	is_a = 0
+	is_name = 1
+
 	parser = AcaoHTMLParser()
 	parser.feed(lista_f)
 
+	l_d = []
+	
 	for k in range(0, len(var_nomes)):
 		nome = dado = "-"
 		if k < len(var_nomes):
@@ -197,11 +205,14 @@ for i in range(0, N): #len(lista_nomes)):
 		if k < len(var_dados):
 			dado = var_dados[k]
 		
-		if not(nome in dados.keys()):
-			dados[nome] = []
+		print nome, "->", dado, " k = ", k
+		
+		if i == 0:
 			ord_nomes.append(nome)
 		
-		dados[nome].append(dado)
+		l_d.append(dado)
+	
+	dados.append(l_d)
 
 file_name = "fundamentus.xls"
 
@@ -212,10 +223,6 @@ with open(file_name, 'w') as f:
 	f.write("\n")
 	
 	for i in range(0, N):
-		for k in ord_nomes:
-			if k in dados:
-				if i < len(dados[k]):
-					f.write(dados[k][i] + "\t")
-				else:
-					f.write("-\t")
+		for d in dados[i]:
+			f.write(d + "\t")
 		f.write("\n")
