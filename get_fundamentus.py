@@ -1,6 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-(c) 2013, GoGo40 - Pï¿½ricles Lopes Machado
+(c) 2013, 2014, GoGo40 - Pï¿½ricles Lopes Machado
 
 Script que baixa os dados fundamentalista do site fundamentus.com.br 
 e gera um arquivo xls com todos dados.
@@ -11,6 +11,21 @@ from subprocess import call
 import pycurl
 import cStringIO
 import time
+import string
+import json
+import re
+
+######################################################################
+"""
+Funcoes utilitarias
+"""
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 
 ####################################################################
 """
@@ -56,18 +71,18 @@ def get_file(link):
 
 ####################################################################
 """
-DefiniÃ§Ãµes
+Definições
 """
 
-link_lista_acoes = "fundamentus.com.br/detalhes.php"
+link_lista_acoes = "www.fundamentus.com.br/detalhes.php"
 
-link_base = "fundamentus.com.br/"
+link_base = "www.fundamentus.com.br/"
 
 
 ####################################################################
 
 """
-Obtendo lista de papÃ©is
+Obtendo lista de papeis
 """
 
 lista_f = get_file(link_lista_acoes)
@@ -180,6 +195,8 @@ dados = []
 N = len(lista_nomes)
 ord_nomes = []
 
+raw_data = {}
+
 for i in range(0, N): #len(lista_nomes)):
 	print "PROCESSANDO LINK ", (i+1), "de", N
 	print lista_nomes[i], lista_links[i]
@@ -198,10 +215,16 @@ for i in range(0, N): #len(lista_nomes)):
 
 	l_d = []
 	
+	info_stock = {}
 	for k in range(0, len(var_nomes)):
-		nome = dado = "-"
+		nome_ = nome = dado = "-"
+		
 		if k < len(var_nomes):
 			nome = var_nomes[k]
+			allow = "[^A-Za-z0-9. /\-]"
+			print nome, allow
+			nome_ = re.sub(allow, '', nome)
+			
 		if k < len(var_dados):
 			dado = var_dados[k]
 		
@@ -210,8 +233,25 @@ for i in range(0, N): #len(lista_nomes)):
 		if i == 0:
 			ord_nomes.append(nome)
 		
+		if k < len(var_nomes) and k < len(var_dados):
+			dado = dado.replace('.', '')
+			dado = dado.replace(',', '.')
+			dado = dado.replace('%', '')
+
+			dado_ = '-'
+			if is_number(dado):
+				dado_ = float(dado)
+			else:
+				allow = "[^A-Za-z0-9. /\-]"
+				print dado, allow
+				dado_ = re.sub(allow, '', dado)
+				
+			info_stock[nome_] = dado_
+
 		l_d.append(dado)
 	
+	raw_data[var_dados[0]] = info_stock
+
 	dados.append(l_d)
 
 file_name = "fundamentus.xls"
@@ -226,3 +266,10 @@ with open(file_name, 'w') as f:
 		for d in dados[i]:
 			f.write(d + "\t")
 		f.write("\n")
+
+#print raw_data
+
+file_name = "fundamentus.json"
+with open(file_name, 'w') as f:
+	f.write(json.dumps(raw_data) + "\n")
+
