@@ -10,48 +10,68 @@ enviar email para a lista de usuários cadastrada
 //Parametros fundamentalistas analisados
 
 /*
-	[P/Ativos] => -
-    [P/Cap. Giro] => -
-    [P/Ativ Circ Liq] => -
-    [EBIT / Ativo] => 0
-    [P/L] => 7.27
-    [P/EBIT] => -
-    [ROIC] => -
-    [Min 52 sem] => 10.8
-    [Div. Yield] => 4.3
-    [Subsetor] => Bancos
-    [EV / EBIT] => -
-    [Cotao] => 13.5
-    [VPA] => 13.15
-    [Data lt cot] => 09/05/2014
-    [2014] => 10.11
-    [2011] => -10.49
-    [2010] => 29.1
-    [2013] => -5.4
-    [P/VP] => 1.03
-    [ROE] => 14.1
-    [Nro. Aes] => 151043000
-    [lt balano processado] => 31/03/2014
-    [Dia] => -0.74
-    [Liquidez Corr] => -
-    [Ms] => 5.06
-    [Div Br/ Patrim] => -
-    [Setor] => Financeiros
-    [LPA] => 1.86
-    [Marg. EBIT] => -
-    [Empresa] => N2 ABC Brasil PN N2
-    [2009] => 133.33
-    [Cres. Rec 5a] => 1.8
-    [Max 52 sem] => 14.68
-    [Papel] => ABCB4
-    [Giro Ativos] => -
-    [PSR] => -
-    [2012] => 19.56
-    [Valor de mercado] => 2039080000
-    [30 dias] => 4.25
+PESOS
+	"Empresa"=>"s",
+	"Papel"=>"s",
+	"Setor"=>"s",
+    "Subsetor"=>"s",
+
+	"Data lt cot"=>"d",
+	"lt balano processado"=>"d",
+	
+	
+    Controle de oscilacao (valor normalizado com relacao aos outros) = 
+    (Cotacao - min) / (max - min) * 
+    (1 +  (2 * MEDIA(OSCILACAO ANO != 0) + 3 * MEDIA(DIA, mes, 30 DIAS)) / 500)  PESO -1
+    
+	"Cotao"=>"n",
+    
+    "2014"=>"n",
+    "2012"=>"n",
+    "2013"=>"n",
+    "2011"=>"n",
+    "2010"=>"n",
+    "2009"=>"n",
+	
+	"Min 52 sem"=>"n", 
+	"Max 52 sem"=>"n", 
+	
+	"Dia"=>"n", 
+	"Ms"=>"n",
+	"30 dias"=>"n",
+	
+-----------------------------------------------------------------------------------------
+	"Nro. Aes"=>"n",
+    "Valor de mercado"=>"n",
+-----------------------------------------------------------------------------------------    
+
+	"P/Ativos"=>"n",  -1
+	"P/Cap. Giro"=>"n",  -2
+    "P/Ativ Circ Liq"=>"n", -3
+    "P/L"=>"n",  -2
+    "P/EBIT"=>"n",  -1
+	"EV / EBIT"=>"n", PESO -1
+    "Div Br/ Patrim"=>"n",   PESO -5
+    "PSR"=>"n", -2
+	"P/VP"=>"n",   PESO -1
+    
+    "ROIC"=>"n",   PESO 1
+    "ROE"=>"n",    PESO 2
+    "Div. Yield"=>"n",  PESO 3
+    "EBIT / Ativo"=>"n", PESO 2
+    
+    
+    "VPA"=>"n",   PESO 1
+    "Liquidez Corr"=>"n",  PESO 2
+    "LPA"=>"n",    PESO 2
+    "Marg. EBIT"=>"n",  PESO 1
+    "Cres. Rec 5a"=>"n",  PESO 2
+    "Giro Ativos"=>"n",  PESO 2
+    
 */
 
 $params = array(
+	"Empresa"=>"s",
 	"Papel"=>"s",
 	"Setor"=>"s",
     "Subsetor"=>"s",
@@ -87,17 +107,43 @@ $params = array(
     "Div Br/ Patrim"=>"n",
     "LPA"=>"n",
     "Marg. EBIT"=>"n",
-    "Empresa"=>"n",
     "Cres. Rec 5a"=>"n",
     "Giro Ativos"=>"n",
     "PSR"=>"n"
     );
 
+$weights = array (
+	"P/Ativos"=>-1.0,
+	"P/Cap. Giro"=>-2.0,
+    "P/Ativ Circ Liq"=>-3.0,
+    "P/L"=>-2.0,
+    "P/EBIT"=>-1.0,
+	"EV / EBIT"=>-1.0,
+    "Div Br/ Patrim"=>-6.0,
+    "PSR"=>-2.0,
+	"P/VP"=>-1.0,
+    
+    "ROIC"=>1.0,
+    "ROE"=>2.0,
+    "Div. Yield"=>3.0,
+    "EBIT / Ativo"=>2.0,
+    
+    
+    "VPA"=>1.0,
+    "Liquidez Corr"=>4.0,
+    "LPA"=>2.0,
+    "Marg. EBIT"=>1.0,
+    "Cres. Rec 5a"=>2.0,
+    "Giro Ativos"=>2.0
+	);
+
+
 $alias  = array(
+	"Empresa",
 	"Papel",
 	"Setor",
     "Subsetor",
-	"cotacao",
+	"Cotacao",
     "Min 52 sem", 
 	"Max 52 sem",
     "Nro. Acoes",
@@ -129,7 +175,6 @@ $alias  = array(
     "Div Br/ Patrim",
     "LPA",
     "Marg. EBIT",
-    "Empresa",
     "Cres. Rec 5a",
     "Giro Ativos",
     "PSR"
