@@ -1,0 +1,203 @@
+<?php
+/*********************************************************************************
+Copyright (c) GoGo40.
+
+Criado por: Péricles Lopes Machado <pericles.raskolnikoff@gmail.com>.
+
+FUNÇÃO DE ENVIO DE E-MAIL
+*********************************************************************************/
+$BUFFER_SIZE = 1000000000; // 1 GB
+
+$system_bot = "MK INDEX BOT";
+$system_email  = "BOT@MAIL";
+$email_pwd = "SENHA AQUI";
+$system_name = "MK INDEX";
+
+$mail_list = array(
+"Pericles Lopes Machado" => "aaaa@nnn.ccc"
+);
+
+$N_rows = 100;
+
+$params = array(
+	"Empresa"=>"s",
+	"Papel"=>"s",
+	"Setor"=>"s",
+    "Subsetor"=>"s",
+	"Data lt cot"=>"d",
+	"lt balano processado"=>"d",
+	"Cotao"=>"n",
+    "Nro. Aes"=>"n",
+    "Valor de mercado"=>"n",
+    "2014"=>"n",
+    "2012"=>"n",
+    "2013"=>"n",
+    "2011"=>"n",
+    "2010"=>"n",
+    "2009"=>"n",
+	"Min 52 sem"=>"n", 
+	"Max 52 sem"=>"n", 
+	"Dia"=>"n", 
+	"Ms"=>"n",
+	"30 dias"=>"n",
+	"P/Ativos"=>"n",
+	"P/Cap. Giro"=>"n",
+    "P/Ativ Circ Liq"=>"n",
+    "EBIT / Ativo"=>"n",
+    "P/L"=>"n",
+    "P/EBIT"=>"n",
+    "ROIC"=>"n",
+    "Div. Yield"=>"n",
+    "EV / EBIT"=>"n",
+    "VPA"=>"n",
+    "P/VP"=>"n",
+    "ROE"=>"n",
+    "Liquidez Corr"=>"n",
+    "Div Br/ Patrim"=>"n",
+    "LPA"=>"n",
+    "Marg. EBIT"=>"n",
+    "Cres. Rec 5a"=>"n",
+    "Giro Ativos"=>"n",
+    "PSR"=>"n"
+    );
+
+
+$params_to_send = array(
+	"Papel"=>"s",
+	"Empresa"=>"s",
+	"Cotao"=>"s",
+	"Subsetor"=>"s",
+    "Indice MK"=>"n"
+    );
+
+$alias  = array(
+	"Empresa",
+	"Papel",
+	"Setor",
+    "Subsetor",
+	"Cotacao",
+    "Min 52 sem", 
+	"Max 52 sem",
+    "Nro. Acoes",
+    "Valor de mercado",
+    "Data lt cot",
+	"Ult balanco processado",
+	"Osc. 2014",
+    "Osc. 2012",
+    "Osc. 2013",
+    "Osc. 2011",
+    "Osc. 2010",
+    "Osc. 2009",
+	"Osc. Dia", 
+	"Osc. Mes",
+	"Osc. 30 dias",
+	"P/Ativos",
+	"P/Cap. Giro",
+    "P/Ativ Circ Liq",
+    "EBIT / Ativo",
+    "P/L",
+    "P/EBIT",
+    "ROIC",
+    "Div. Yield",
+    "EV / EBIT",
+    "VPA",
+    "P/VP",
+    "ROE",
+    "Liquidez Corr",
+    "Div Br/ Patrim",
+    "LPA",
+    "Marg. EBIT",
+    "Cres. Rec 5a",
+    "Giro Ativos",
+    "PSR"
+	);
+
+$weights = array (
+	"P/Ativos"=>-1.0,
+	"P/Cap. Giro"=>-2.0,
+    "P/Ativ Circ Liq"=>-3.0,
+    "P/L"=>-2.0,
+    "P/EBIT"=>-1.0,
+	"EV / EBIT"=>-1.0,
+    "Div Br/ Patrim"=>-6.0,
+    "PSR"=>-2.0,
+	"P/VP"=>-1.0,
+    
+    "ROIC"=>1.0,
+    "ROE"=>2.0,
+    "Div. Yield"=>3.0,
+    "EBIT / Ativo"=>2.0,
+    
+    
+    "VPA"=>1.0,
+    "Liquidez Corr"=>4.0,
+    "LPA"=>2.0,
+    "Marg. EBIT"=>1.0,
+    "Cres. Rec 5a"=>2.0,
+    "Giro Ativos"=>2.0,
+    "Cotacao Esperada"=>1.0
+	);
+
+
+//Parametros fundamentalistas analisados
+
+/*
+PESOS
+	"Empresa"=>"s",
+	"Papel"=>"s",
+	"Setor"=>"s",
+    "Subsetor"=>"s",
+
+	"Data lt cot"=>"d",
+	"lt balano processado"=>"d",
+	
+	
+    Controle de oscilacao (valor normalizado com relacao aos outros) = 
+    (Cotacao - min) / (max - min) * 
+    (1 +  (2 * MEDIA(OSCILACAO ANO != 0) + 3 * MEDIA(DIA, mes, 30 DIAS)) / 500)  PESO -1
+    
+	"Cotao"=>"n",
+    
+    "2014"=>"n",
+    "2012"=>"n",
+    "2013"=>"n",
+    "2011"=>"n",
+    "2010"=>"n",
+    "2009"=>"n",
+	
+	"Min 52 sem"=>"n", 
+	"Max 52 sem"=>"n", 
+	
+	"Dia"=>"n", 
+	"Ms"=>"n",
+	"30 dias"=>"n",
+	
+-----------------------------------------------------------------------------------------
+	"Nro. Aes"=>"n",
+    "Valor de mercado"=>"n",
+-----------------------------------------------------------------------------------------    
+
+	"P/Ativos"=>"n",  -1
+	"P/Cap. Giro"=>"n",  -2
+    "P/Ativ Circ Liq"=>"n", -3
+    "P/L"=>"n",  -2
+    "P/EBIT"=>"n",  -1
+	"EV / EBIT"=>"n", PESO -1
+    "Div Br/ Patrim"=>"n",   PESO -5
+    "PSR"=>"n", -2
+	"P/VP"=>"n",   PESO -1
+    
+    "ROIC"=>"n",   PESO 1
+    "ROE"=>"n",    PESO 2
+    "Div. Yield"=>"n",  PESO 3
+    "EBIT / Ativo"=>"n", PESO 2
+    
+    
+    "VPA"=>"n",   PESO 1
+    "Liquidez Corr"=>"n",  PESO 2
+    "LPA"=>"n",    PESO 2
+    "Marg. EBIT"=>"n",  PESO 1
+    "Cres. Rec 5a"=>"n",  PESO 2
+    "Giro Ativos"=>"n",  PESO 2
+    
+*/
