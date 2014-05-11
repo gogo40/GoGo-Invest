@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /*
 (c) 2013, 2014, GoGo40 - Pericles Lopes Machado
@@ -134,25 +135,27 @@ $alias  = array(
     "PSR"
 	);
 
-$cmd = 'python get_fundamentus.py > download_log_'.date("Y_m_d").'.log';
+$cmd = 'python '.__DIR__.'/get_fundamentus.py > '.__DIR__.'/download_log_'.date("Y_m_d").'.log';
+
+$BUFFER_SIZE = 1000000000; // 1 GB
 
 system($cmd);
 
 
-$log = fopen("fundamentus_".date("Y_m_d").".log", "a");
+$log = fopen(__DIR__."/fundamentus_".date("Y_m_d").".log", "a");
 if (!$log) {
 	die ("Falha ao abrir arquivo de log");
 }
 
 fprintf($log, "Carregado script...\n");
 
-$fdata = fopen("fundamentus.json", "r");
+$fdata = fopen(__DIR__."/fundamentus.json", "r");
 if (!$fdata) {
 	die ("Falha ao abrir arquivo fundamentus.json");
 }
 
 $info = "";
-$info = fgets($fdata, 1999999999);
+$info = fgets($fdata, $BUFFER_SIZE);
 
 //Carrega estrutura com os dados
 $info = json_decode($info, true);

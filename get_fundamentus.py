@@ -14,6 +14,12 @@ import time
 import string
 import json
 import re
+import os
+import sys
+
+my_location = os.path.dirname(os.path.realpath(__file__)) + "/"
+
+print "Script location = " + my_location
 
 ######################################################################
 """
@@ -32,17 +38,17 @@ def is_number(s):
 Funcao que gera um arquivo a partir de um link
 """
 use_wget = True
-fn = "get_buffer"
+fn = my_location + "get_buffer"
 duracao_pausa = 0.5
 
 def get_file(link):
-	global use_wget, fn
+	global use_wget, fn, my_location
 
 	print "Baixando " + link + "..."
 	lista_f = ""
 	
 	if use_wget:
-		call(["wget", link, "-O", fn, "-o", "log_fundamentus"])
+		call(["wget", link, "-O", fn, "-o", my_location + "log_fundamentus"])
 
 		lista_f = ""
 
@@ -252,7 +258,7 @@ for i in range(0, N): #len(lista_nomes)):
 
 	dados.append(l_d)
 
-file_name = "fundamentus.xls"
+file_name = my_location + "fundamentus.xls"
 
 
 with open(file_name, 'w') as f:
@@ -267,7 +273,7 @@ with open(file_name, 'w') as f:
 
 #print raw_data
 
-file_name = "fundamentus.json"
+file_name = my_location + "fundamentus.json"
 with open(file_name, 'w') as f:
 	f.write(json.dumps(raw_data) + "\n")
 
