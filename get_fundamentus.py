@@ -1,6 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-(c) 2013, 2014, GoGo40 - P�ricles Lopes Machado
+(c) 2013, 2014, GoGo40 - Pericles Lopes Machado
 
 Script que baixa os dados fundamentalista do site fundamentus.com.br 
 e gera um arquivo xls com todos dados.
@@ -222,7 +222,6 @@ for i in range(0, N): #len(lista_nomes)):
 		if k < len(var_nomes):
 			nome = var_nomes[k]
 			allow = "[^A-Za-z0-9. /\-]"
-			print nome, allow
 			nome_ = re.sub(allow, '', nome)
 			
 		if k < len(var_dados):
@@ -243,7 +242,6 @@ for i in range(0, N): #len(lista_nomes)):
 				dado_ = float(dado)
 			else:
 				allow = "[^A-Za-z0-9. /\-]"
-				print dado, allow
 				dado_ = re.sub(allow, '', dado)
 				
 			info_stock[nome_] = dado_
