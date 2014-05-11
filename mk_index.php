@@ -19,7 +19,7 @@ foreach ($weights as $id=>$value) {
 $cmd = 'python '.__DIR__.'/get_fundamentus.py > '.__DIR__.'/download_log_'.date("Y_m_d").'.log';
 
 /*INVOCA SCRIPT PYTHON PARA BAIXAR BASE DE DADOS*/
-system($cmd);
+//system($cmd);
 
 $log = fopen(__DIR__."/fundamentus_".date("Y_m_d").".log", "a");
 if (!$log) {
