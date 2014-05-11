@@ -46,12 +46,12 @@ function send_mk_data($mk_file, $params)
 		$assunto = "[$system_name BOT] Indice MK (".date('d/m/Y').")";
 		
 		$mensagem = 
-		    "<p>Olá <b>$nome</b>, tudo bem?<br>\n" .
-			"O índice MK acabou de ser atualizado.</p>\n";
+		    "<p>Olá <b>$nome</b>, tudo bem?</p>" .
+			"<p>O índice MK acabou de ser atualizado.</p>\n";
 
 
-		$mensagem .= "<p><b>TOP 100 </b></p>";
-		$mensagem .= "<p><table>\n";
+		$mensagem .= "<br><b>TOP 100 </b></br>";
+		$mensagem .= "<table>";
 	
 		$mensagem .= "<tr>";
 		$mensagem .= " <th bgcolor=\"#C8C8C8\"> # </th> ";
@@ -90,7 +90,7 @@ function send_mk_data($mk_file, $params)
 
 		}
 
-		$mensagem .= "</table>\n</p>";
+		$mensagem .= "</table>";
 
 
 		$mensagem .=
