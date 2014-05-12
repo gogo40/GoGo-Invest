@@ -47,10 +47,10 @@ function send_mk_data($mk_file, $params)
 		
 		$mensagem = 
 		    "<p>Olá <b>$nome</b>, tudo bem?</p>" .
-			"<p>O índice MK acabou de ser atualizado.</p>\n";
+			"<p>O índice MK acabou de ser atualizado.</p>";
 
 
-		$mensagem .= "<br><b>TOP 100 </b></br>";
+		$mensagem .= "<b>TOP 100 </b>";
 		$mensagem .= "<table>";
 	
 		$mensagem .= "<tr>";
@@ -59,7 +59,7 @@ function send_mk_data($mk_file, $params)
 			$mensagem .= " <th bgcolor=\"#C8C8C8\"> $p </th> ";
 
 		}
-		$mensagem .= "</tr>\n";
+		$mensagem .= "</tr>";
 
 		$nr = 0;
 		foreach ($info_mk as $id=>$data) {
@@ -82,7 +82,7 @@ function send_mk_data($mk_file, $params)
 					$mensagem .= " <td> ".$data[$p]." </td> ";
 				}
 			}
-			$mensagem .= " </tr>\n";
+			$mensagem .= " </tr>";
 			if ($nr >= $N_rows) {
 				break;
 			}
@@ -94,7 +94,7 @@ function send_mk_data($mk_file, $params)
 
 
 		$mensagem .=
-		    "<p>Obrigado e espero que os dados te ajudem!</p>" .
+		    "<p>Espero que os dados te ajudem!</p>" .
 			"<p>$system_name</p>\n";
 
 		gogo40_mail($destinatario, $email, $assunto, $mensagem);
