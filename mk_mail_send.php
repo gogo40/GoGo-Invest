@@ -43,15 +43,15 @@ function send_mk_data($mk_file, $params)
 
 	foreach ($mail_list as $nome=>$email) {
 		$destinatario = "$nome";
-		$assunto = "[$system_name BOT] Indice MK (".date('d/m/Y').")";
+		$assunto = "[$system_name] Indice MK (".date('d/m/Y').")";
 		
 		$mensagem = 
-		    "<p>Olá <b>$nome</b>, tudo bem?</p>" .
-			"<p>O índice MK acabou de ser atualizado.</p>";
+		    "<p>Olá <b>$nome</b>, tudo bem?</p>\n" .
+			"<p>O índice MK acabou de ser atualizado.</p>\n";
 
 
-		$mensagem .= "<b>TOP 100 </b>";
-		$mensagem .= "<table>";
+		$mensagem .= "<p><b>TOP 100 </b></p>\n";
+		$mensagem .= "<p><table>";
 	
 		$mensagem .= "<tr>";
 		$mensagem .= " <th bgcolor=\"#C8C8C8\"> # </th> ";
@@ -59,7 +59,7 @@ function send_mk_data($mk_file, $params)
 			$mensagem .= " <th bgcolor=\"#C8C8C8\"> $p </th> ";
 
 		}
-		$mensagem .= "</tr>";
+		$mensagem .= "</tr>\n";
 
 		$nr = 0;
 		foreach ($info_mk as $id=>$data) {
@@ -82,7 +82,7 @@ function send_mk_data($mk_file, $params)
 					$mensagem .= " <td> ".$data[$p]." </td> ";
 				}
 			}
-			$mensagem .= " </tr>";
+			$mensagem .= "\n </tr>";
 			if ($nr >= $N_rows) {
 				break;
 			}
@@ -90,7 +90,7 @@ function send_mk_data($mk_file, $params)
 
 		}
 
-		$mensagem .= "</table>";
+		$mensagem .= "\n</table>\n</p>\n";
 
 
 		$mensagem .=
