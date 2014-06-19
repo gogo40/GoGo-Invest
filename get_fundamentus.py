@@ -39,7 +39,7 @@ Funcao que gera um arquivo a partir de um link
 """
 use_wget = True
 fn = my_location + "get_buffer"
-duracao_pausa = 0.5
+duracao_pausa = 2
 
 def get_file(link):
 	global use_wget, fn, my_location
