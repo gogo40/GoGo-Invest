@@ -63,7 +63,7 @@ if (array_key_exists("f", $_GET)) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">MK Index</a>
+                <a class="navbar-brand" href="/">MK Index</a>
             </div>
             <!-- /.navbar-top-links -->
 
