@@ -184,6 +184,10 @@ foreach ($info_mk as $id=>$data) {
 O índice MK é experimental e baseado em heurísticas. Por isso, os autores se isentam de qualquer responsabilidade pelo uso das informações apresentadas pelo site em tomadas de decisão. Os balanços e outras informações financeiras das empresas foram extraídas do site <a href="http://www.fundamentus.com.br">Fundamentus</a>. 
                     </p>
 
+		    <p>
+Caso tenha interesse em mais informações sobre o índice ou queria ter acesso ao índice completo e um comparativo de outros parâmetros fundamentalistas, por favor, entre em contato para negociarmos.
+                    </p>
+
                 </div>
                 <div class="panel-footer">
                     (c) 2014, Péricles Lopes Machado &lt;pericles.raskolnikoff [at] gmail.com&gt; e Pablo Koury &lt;pablo.koury [at] ufrgs.br&gt;.
