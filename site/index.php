@@ -149,7 +149,11 @@ foreach ($info_mk as $id=>$data) {
 				$data[$p] = sprintf("%.2f",$data[$p]);
 			}
 
-			echo " <td> ".$data[$p]." </td> ";
+			if ($p === "Papel") {
+				echo " <td> <a href=\"http://fundamentus.com.br/detalhes.php?papel=".$data[$p]."\" target=\"_blank\"> <b> ".$data[$p]." </b> </a> </td> ";
+			} else {
+				echo " <td> ".$data[$p]." </td> ";
+			}
 		}
 
 		echo "\n </tr>";
