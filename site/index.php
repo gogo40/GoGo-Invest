@@ -74,7 +74,7 @@ if (array_key_exists("f", $_GET)) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> Bovespa  </h1>
+                    <h1 class="page-header"> <?php echo "TOP ".(NUMBER_OUTPUT+1)." ";?> Bovespa  </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -123,6 +123,7 @@ $info_mk =  json_decode(fgets($fdata, BUFFER_SIZE), true);
 aasort($info_mk,"Indice MK");
 
 fclose($fdata);
+echo  "<th> # </th> ";
 foreach ($params_to_send as $key => $value) {
 	$v = $params_name[$key];
 	echo "<th>$v</th>";
@@ -139,6 +140,7 @@ $nr = 0;
 foreach ($info_mk as $id=>$data) {
 	echo "<tr class=\"gradeA\"> ";
 
+	echo "<td> ".($nr + 1)." </td> ";
 
 	foreach ($params_to_send as $p => $type) {
 		if ($type === "n") {
@@ -176,11 +178,12 @@ foreach ($info_mk as $id=>$data) {
                 </div>
                 <div class="panel-body">
                     <p>
-O índice MK é experimental e baseado em heurísticas. Por isso, o autor se isenta de qualquer responsabilidade pelo uso das informações apresentadas pelo site em tomadas de decisão. Os balanços e outras informações financeiras das empresas foram extraídas do site <a href="http://www.fundamentus.com.br">Fundamentus</a>. 
+O índice MK é experimental e baseado em heurísticas. Por isso, os autores se isentam de qualquer responsabilidade pelo uso das informações apresentadas pelo site em tomadas de decisão. Os balanços e outras informações financeiras das empresas foram extraídas do site <a href="http://www.fundamentus.com.br">Fundamentus</a>. 
                     </p>
+
                 </div>
                 <div class="panel-footer">
-                    (c) 2014, Péricles Lopes Machado &lt;pericles.raskolnikoff [at] gmail.com&gt;.
+                    (c) 2014, Péricles Lopes Machado &lt;pericles.raskolnikoff [at] gmail.com&gt; e Pablo Koury &lt;pablo.koury [at] ufrgs.br&gt;.
                 </div>
             </div>
 	    <!-- /.row -->
