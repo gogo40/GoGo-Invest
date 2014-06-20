@@ -88,7 +88,7 @@ if (array_key_exists("f", $_GET)) {
 				    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
 					<?php 
 						list($year, $month, $day, $hour) = sscanf($file, "fundamentus_mk_%4d%2d%2d%4d.json");
-						echo $day.'/'. $month.'/'.$year; 
+						echo " <p> Data:  ".$day.' / '. $month.' / '.$year. "  </p>"; 
 					?> 
 					<span class="caret"></span>
 				    </button>
@@ -99,7 +99,7 @@ if (array_key_exists("f", $_GET)) {
 							$value = $database[$i];
 							//fundamentus_mk_*.json
 							list($year, $month, $day, $hour) = sscanf($value, "fundamentus_mk_%4d%2d%2d%4d.json");
-							echo '<li><a href="index.php?f='.$value.'">'.$day.'/'. $month.'/'.$year.'</a></li>';
+							echo '<li><a href="index.php?f='.$value.'">'.$day.' / '. $month.' / '.$year.' </a></li>';
 						}
 					?>
 				    </ul>
