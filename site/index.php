@@ -126,6 +126,8 @@ foreach ($params_to_send as $key => $value) {
                                     <tbody>
 
 <?php
+
+$nr = 0;
 foreach ($info_mk as $id=>$data) {
 	echo "<tr class=\"gradeA\"> ";
 
@@ -139,6 +141,9 @@ foreach ($info_mk as $id=>$data) {
 	}
 
 	echo "\n </tr>";
+
+	if ($nr >= NUMBER_OUTPUT) { break; }
+	++$nr;
 
 }
 ?>

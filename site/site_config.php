@@ -9,6 +9,7 @@ enviar email para a lista de usuários cadastrada
 
 define("SITE_PATH", "/var/www/mkindex");
 define("BUFFER_SIZE", 10000000);
+define("NUMBER_OUTPUT", 200);
 
 $params_to_send = array(
 	"Papel"=>"s",
