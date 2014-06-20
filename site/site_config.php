@@ -7,6 +7,6 @@ enviar email para a lista de usuários cadastrada
 */
 
 
-define("SITE_PATH", "/root/gogoInvest");
+define("SITE_PATH", "/var/www/mkindex");
 
 

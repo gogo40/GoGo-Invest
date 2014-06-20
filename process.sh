@@ -13,3 +13,7 @@ php $1/mk_index.php
 mv $1/fundamentus.json $1/fundamentus_$TIMESTAMP.json
 mv $1/fundamentus_mk.json $1/fundamentus_mk_$TIMESTAMP.json
 mv $1/fundamentus_raw.json $1/fundamentus_raw_$TIMESTAMP.json
+
+
+cp $1/fundamentus_mk_$TIMESTAMP.json /var/www/mkindex
+
