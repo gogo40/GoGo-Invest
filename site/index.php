@@ -74,7 +74,7 @@ if (array_key_exists("f", $_GET)) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> <?php echo "TOP ".(NUMBER_OUTPUT+1)." ";?> Bovespa  </h1>
+                    <h1 class="page-header"> RANKING IBOVESPA  </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -138,22 +138,25 @@ foreach ($params_to_send as $key => $value) {
 
 $nr = 0;
 foreach ($info_mk as $id=>$data) {
-	echo "<tr class=\"gradeA\"> ";
+	$papel = $data["Papel"];
+	if (array_key_exists($papel, $papeis_bovespa)) {
+		echo "<tr class=\"gradeA\"> ";
 
-	echo "<td> ".($nr + 1)." </td> ";
+		echo "<td> ".($nr + 1)." </td> ";
 
-	foreach ($params_to_send as $p => $type) {
-		if ($type === "n") {
-			$data[$p] = sprintf("%.2f",$data[$p]);
+		foreach ($params_to_send as $p => $type) {
+			if ($type === "n") {
+				$data[$p] = sprintf("%.2f",$data[$p]);
+			}
+
+			echo " <td> ".$data[$p]." </td> ";
 		}
 
-		echo " <td> ".$data[$p]." </td> ";
+		echo "\n </tr>";
+
+		if ($nr >= NUMBER_OUTPUT) { break; }
+		++$nr;
 	}
-
-	echo "\n </tr>";
-
-	if ($nr >= NUMBER_OUTPUT) { break; }
-	++$nr;
 
 }
 ?>

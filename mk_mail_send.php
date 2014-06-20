@@ -97,6 +97,8 @@ function send_mk_data($mk_file, $params)
 		    "<p>Espero que os dados te ajudem!</p>" .
 			"<p>$system_name</p>\n";
 
+		$mensagem .= "<p>Acesse nosso site em <a href=\"http://mkindex.com/\">http://mkindex.com/</a>.</p>";
+
 		gogo40_mail($destinatario, $email, $assunto, $mensagem);
 	}
 }
