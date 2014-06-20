@@ -9,4 +9,34 @@ enviar email para a lista de usuários cadastrada
 
 define("SITE_PATH", "/var/www/mkindex");
 
+$params_to_send = array(
+	"Papel"=>"s",
+	"Empresa"=>"s",
+	"Cotao"=>"s",
+	"Subsetor"=>"s",
+	"Indice MK"=>"n"
+);
+
+$params_name = array(
+	"Papel"=>"Papel",
+	"Empresa"=>"Empresa",
+	"Cotao"=>"Cotação",
+	"Subsetor"=>"Subsetor",
+	"Indice MK"=>"Índice MK"
+);
+
+function aasort (&$array, $key) {
+    $sorter=array();
+    $ret=array();
+    reset($array);
+    foreach ($array as $ii => $va) {
+        $sorter[$ii]=$va[$key];
+    }
+    arsort($sorter);
+
+    foreach ($sorter as $ii => $va) {
+        $ret[$ii]=$array[$ii];
+    }
+    $array=$ret;
+}
 

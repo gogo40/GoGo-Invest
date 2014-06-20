@@ -103,56 +103,51 @@ if (array_key_exists("f", $_GET)) {
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
+<?php
+
+$fdata = fopen($file, "r");
+if (!$fdata) {
+	die ("Falha ao abrir arquivo " + $file);
+}
+
+$info_mk =  json_decode(fgets($fdata, $BUFFER_SIZE), true);
+
+aasort($info_mk,"Indice MK");
+
+fclose($fdata);
+foreach ($params_to_send as $key => $value) {
+	$v = $params_name[$value];
+	echo "<th>$v</th>";
+}
+?>
+                         
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="gradeA">
-                                            <td>Trident</td>
-                                            <td>Internet Explorer 4.0</td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Gecko</td>
-                                            <td>Epiphany 2.20</td>
-                                            <td>Gnome</td>
-                                            <td class="center">1.8</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Webkit</td>
-                                            <td>Safari 1.2</td>
-                                            <td>OSX.3</td>
-                                            <td class="center">125.5</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.1</td>
-                                            <td>KDE 3.1</td>
-                                            <td class="center">3.1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.3</td>
-                                            <td>KDE 3.3</td>
-                                            <td class="center">3.3</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Other browsers</td>
-                                            <td>All others</td>
-                                            <td>-</td>
-                                            <td class="center">-</td>
-                                            <td class="center">U</td>
-                                        </tr>
+
+<?php
+foreach ($info_mk as $id=>$data) {
+	echo "<tr class=\"gradeA\"> ";
+
+
+	foreach ($params_to_send as $p=>$type) {
+		if ($type === "n") {
+			$data[$p] = sprintf("%.2f",$data[$p]);
+		}
+
+		echo " <td> ".$data[$p]." </td> ";
+	}
+
+	echo "\n </tr>";
+	if ($nr >= $N_rows) {
+		break;
+	}
+	++$nr;
+
+}
+?>
+                                 
+                                       
                                     </tbody>
                                 </table>
                             </div>
