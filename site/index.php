@@ -9,9 +9,11 @@ enviar email para a lista de usuários cadastrada
 echo "Ola<p>";
 echo __DIR__."<p>";
 
+
+/*
 require_once (__DIR__.'/../mk_config.php');
 
 
 $files = glob(__DIR__."/../fundamentus_mk_*.json");
 
-print_r($files);
+print_r($files);*/
