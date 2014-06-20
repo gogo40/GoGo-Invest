@@ -185,7 +185,7 @@ O índice MK é experimental e baseado em heurísticas. Por isso, os autores se 
                     </p>
 
 		    <p>
-Caso tenha interesse em mais informações sobre o índice ou queria ter acesso ao índice completo e um comparativo de outros parâmetros fundamentalistas, por favor, entre em contato para negociarmos.
+Caso tenha interesse em mais informações sobre o índice ou queria ter acesso ao índice completo (com todos papeis da BOVESPA) e a um comparativo de outros parâmetros fundamentalistas, por favor, entre em contato para negociarmos.
                     </p>
 
                 </div>
