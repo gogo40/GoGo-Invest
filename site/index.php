@@ -74,7 +74,7 @@ if (array_key_exists("f", $_GET)) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"> RANKING IBOVESPA  </h1>
+                    <h1 class="page-header"> RANKING IBOVESPA / Simulador Folha Invest  </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -139,7 +139,18 @@ foreach ($params_to_send as $key => $value) {
 $nr = 0;
 foreach ($info_mk as $id=>$data) {
 	$papel = $data["Papel"];
-	if (array_key_exists($papel, $papeis_bovespa)) {
+	if (array_key_exists($papel, $papeis_bovespa) or array_key_exists($papel, $papeis_folha)) {
+
+		$indices = "";
+
+		if (array_key_exists($papel, $papeis_bovespa)) {
+			$indices .= " IBOVESPA ";
+		}
+
+		if (array_key_exists($papel, $papeis_folha)) {
+			$indices .= " FOLHA ";
+		}
+
 		echo "<tr class=\"gradeA\"> ";
 
 		echo "<td> ".($nr + 1)." </td> ";
@@ -150,7 +161,9 @@ foreach ($info_mk as $id=>$data) {
 			}
 
 			if ($p === "Papel") {
-				echo " <td> <a href=\"http://fundamentus.com.br/detalhes.php?papel=".$data[$p]."\" target=\"_blank\"> <b> ".$data[$p]." </b> </a> </td> ";
+				echo " <td> <a href=\"http://fundamentus.com.br/detalhes.php?papel=".
+				$data[$p]."\" target=\"_blank\"> <b> ".
+				$data[$p]." </b> </a>  ($indices) </td> ";
 			} else {
 				echo " <td> ".$data[$p]." </td> ";
 			}
