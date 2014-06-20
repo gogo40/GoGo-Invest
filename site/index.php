@@ -161,7 +161,7 @@ foreach ($info_mk as $id=>$data) {
 			}
 
 			if ($p === "Papel") {
-				echo " <td> <a href=\"http://fundamentus.com.br/detalhes.php?papel=".
+				echo " <td> <a href=\"https://www.google.com/finance?q=BVMF:".
 				$data[$p]."\" target=\"_blank\"> <b> ".
 				$data[$p]." </b> </a>  ($indices) </td> ";
 			} else {
