@@ -110,13 +110,13 @@ if (!$fdata) {
 	die ("Falha ao abrir arquivo " + $file);
 }
 
-$info_mk =  json_decode(fgets($fdata, $BUFFER_SIZE), true);
+$info_mk =  json_decode(fgets($fdata, BUFFER_SIZE), true);
 
 aasort($info_mk,"Indice MK");
 
 fclose($fdata);
 foreach ($params_to_send as $key => $value) {
-	$v = $params_name[$value];
+	$v = $params_name[$key];
 	echo "<th>$v</th>";
 }
 ?>
@@ -130,7 +130,7 @@ foreach ($info_mk as $id=>$data) {
 	echo "<tr class=\"gradeA\"> ";
 
 
-	foreach ($params_to_send as $p=>$type) {
+	foreach ($params_to_send as $p => $type) {
 		if ($type === "n") {
 			$data[$p] = sprintf("%.2f",$data[$p]);
 		}
