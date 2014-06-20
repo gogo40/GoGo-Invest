@@ -139,10 +139,6 @@ foreach ($info_mk as $id=>$data) {
 	}
 
 	echo "\n </tr>";
-	if ($nr >= $N_rows) {
-		break;
-	}
-	++$nr;
 
 }
 ?>
