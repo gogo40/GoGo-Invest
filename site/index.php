@@ -12,6 +12,7 @@ require_once "site_config.php";
 
 $database = glob("fundamentus_mk_*.json");
 $size = count($database);
+$step = intval($size / NUMBER_PAGES);
 
 if (array_key_exists("f", $_GET)) {
 	$file = $_GET["f"];
@@ -85,13 +86,20 @@ if (array_key_exists("f", $_GET)) {
                         <div class="panel-heading">
                             <div class="btn-group">
 				    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-					<?php echo $file; ?> 
+					<?php 
+						list($year, $month, $day, $hour) = sscanf($file, "fundamentus_mk_%4d%2d%2d%4d.json");
+						echo $day.'/'. $month.'/'.$year; 
+					?> 
 					<span class="caret"></span>
 				    </button>
 				    <ul class="dropdown-menu pull-right" role="menu">
 					<?php
-						foreach ($database as $key => $value) {
-							echo '<li><a href="index.php?f='.$value.'">'.$value.'</a></li>';
+						//foreach ($database as $key => $value) 
+						for ($i = $size - 1; $i > -1; $i -= $step){
+							$value = $database[$i];
+							//fundamentus_mk_*.json
+							list($year, $month, $day, $hour) = sscanf($value, "fundamentus_mk_%4d%2d%2d%4d.json");
+							echo '<li><a href="index.php?f='.$value.'">'.$day.'/'. $month.'/'.$year.'</a></li>';
 						}
 					?>
 				    </ul>
