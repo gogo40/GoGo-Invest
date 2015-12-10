@@ -1,4 +1,4 @@
-gogoInvest
+GoGo-Invest
 ==========
 
 Um repositório contendo scripts úteis para analisar papéis da bovespa e outras bolsas de valores.
